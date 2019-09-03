@@ -13,5 +13,21 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
+        SetDestination();
+    }
+
+    private void SetDestination()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                playerNavMesh.destination = hit.point;
+            }
+        }
     }
 }
