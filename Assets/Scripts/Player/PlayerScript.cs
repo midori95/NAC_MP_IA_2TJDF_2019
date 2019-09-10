@@ -9,6 +9,18 @@ public class PlayerScript : MonoBehaviour
     public bool moveClick;
     public NavMeshAgent playerNavMesh;
 
+    #region BLENDTREE
+
+    public Animator an;
+    public float velocidadeAtual;
+    public float velocidadeRotacao = 130f;
+    public float velocidadeMaxima = 3f;
+    public float aceleracaoInicial = 0.2f;
+    public float aceleracao = 0.01f;
+    public float desaceleracao = 0.07f;
+
+    #endregion BLENDTREE
+
     private void Start()
     {
     }
@@ -27,22 +39,31 @@ public class PlayerScript : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * Input.GetAxis("Vertical") * velocidade);
+        float h = Input.GetAxisRaw("Horizontal");
+        Vector3 rotacao = Vector3.up * velocidadeRotacao * Time.deltaTime * h;
 
-        an.SetFloat("Blend", Input.GetAxis("Vertical"));
+        float v = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        //if (velocidadeAtual > 0)
+        //{
+        transform.Rotate(rotacao);
+        // }
+
+        velocidadeAtual = Mathf.Clamp(velocidadeAtual, 0, velocidadeMaxima);
+
+        if (v > 0 && velocidadeAtual < velocidadeMaxima)
         {
-            an.speed = 2;
-            velocidade = 4;
+            velocidadeAtual += velocidadeAtual == 0f ? aceleracaoInicial : aceleracao;
         }
-        else
+        else if (v == 0 && velocidadeAtual > 0)
         {
-            an.speed = 1;
-            velocidade = 2;
+            velocidadeAtual -= desaceleracao;
         }
 
-        transform.Rotate(0, Input.GetAxis("Horizontal") * velocidade, 0, Space.Self);
+        transform.Translate(velocidadeAtual * Time.deltaTime * Vector3.forward);
+
+        float valorAnimacao = Mathf.Clamp(velocidadeAtual / velocidadeMaxima, 0f, 1f);
+        an.SetFloat("Speed", valorAnimacao);
     }
 
     private void SetDestination()
