@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 07ff6be1fffa93143881d4b6a5930082
+guid: daba49fe36fda544fbc37cb57a7cffec
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -10,8 +10,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: phong1
-    second: {fileID: 2100000, guid: 6bda45fcc2659b64e8980f67d4eeced6, type: 2}
+      name: lambert2
+    second: {fileID: 2100000, guid: 4407b16ef2384874e92c03e1a36b9cd0, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -43,8 +43,8 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 61
-      lastFrame: 120
+      firstFrame: 1
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

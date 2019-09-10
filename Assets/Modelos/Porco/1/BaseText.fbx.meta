@@ -1,17 +1,14 @@
 fileFormatVersion: 2
-guid: 07ff6be1fffa93143881d4b6a5930082
+guid: 167d4f78b0ad1254ca7e757b57362532
 ModelImporter:
   serializedVersion: 25
-  internalIDToNameTable:
-  - first:
-      74: 1827226128182048838
-    second: Take 001
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: phong1
-    second: {fileID: 2100000, guid: 6bda45fcc2659b64e8980f67d4eeced6, type: 2}
+      name: lambert1_u1_v2
+    second: {fileID: 2100000, guid: 4407b16ef2384874e92c03e1a36b9cd0, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -38,36 +35,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Take 001
-      takeName: Take 001
-      internalID: 1827226128182048838
-      firstFrame: 61
-      lastFrame: 120
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -123,7 +91,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
