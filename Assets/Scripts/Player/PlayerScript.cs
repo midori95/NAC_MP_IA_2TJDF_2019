@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour
     public NavMeshAgent playerNavMesh;
     public Rigidbody rb;
     public float forcaPulo = 500f;
-    public bool agachado = Input.GetKey(KeyCode.LeftShift);
+    public static bool agachado;
 
     #region BLENDTREE
 
@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
+        agachado = Input.GetKey(KeyCode.LeftShift);
         if (moveClick)
         {
             SetDestination();
