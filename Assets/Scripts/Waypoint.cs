@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-
     [Header("Waypoints")]
     private Waypoint[] waypoints;
 
@@ -13,7 +13,7 @@ public class Waypoint : MonoBehaviour
     private Waypoint waypointAnterior;
     internal Waypoint waypointPosterior;
 
-    void Start()
+    private void Start()
     {
         CarregarSistemaWaypoint();
     }
@@ -24,10 +24,12 @@ public class Waypoint : MonoBehaviour
         AtualizarWaypoints();
         LinkarWaypoints();
     }
+
     private void AtualizarWaypointAtual()
     {
         indexAtual = PegarIdWaypoint(gameObject.name);
     }
+
     private int PegarIdWaypoint(string nome)
     {
         nome = nome.Replace("Waypoint (", "");
@@ -42,16 +44,38 @@ public class Waypoint : MonoBehaviour
     private void AtualizarWaypoints()
     {
         waypoints = FindObjectsOfType<Waypoint>();
+        //deu erro
         //waypoints = waypoints.OrderBy(objeto => PegarIdWaypoint(objeto, name)).toArray();
     }
 
     private void LinkarWaypoints()
     {
+        int indexAnterior = indexAtual - 1;
+        int indexPosterior = indexAtual + 1;
+
+        DefinirWaypoint(ref waypointAnterior, indexAnterior);
+        DefinirWaypoint(ref waypointPosterior, indexPosterior);
     }
 
-   
+    private void DefinirWaypoint(ref Waypoint Waypoint, int index)
+    {
+        if (index < 0)
+        {
+            index = waypoints.Length - 1;
+        }
+        else if (index == waypoints.Length)
+        {
+            index = 0;
+        }
+    }
 
-    
-
-    
+    private void OnDrawGizmos()
+    {
+        CarregarSistemaWaypoint();
+        if (waypointPosterior != null)
+        {
+            Gizmos.color = new Color(0.1f, 10.0f, 0.0f);
+            Gizmos.DrawLine(transform.position, waypointPosterior.transform.position);
+        }
+    }
 }
