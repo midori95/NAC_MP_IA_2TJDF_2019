@@ -8,11 +8,17 @@ public class PlayerScript : MonoBehaviour
 {
     public bool moveClick;
     public NavMeshAgent playerNavMesh;
+    public Rigidbody rb;
+    public float forcaPulo = 500f;
+    public bool agachado = Input.GetKey(KeyCode.LeftShift);
 
     #region BLENDTREE
 
     public Animator an;
+
+    [Header("Atributos de Velocidade")]
     public float velocidadeAtual;
+
     public float velocidadeRotacao = 130f;
     public float velocidadeMaxima = 3f;
     public float aceleracaoInicial = 0.2f;
@@ -60,7 +66,19 @@ public class PlayerScript : MonoBehaviour
             velocidadeAtual -= desaceleracao;
         }
 
-        transform.Translate(velocidadeAtual * Time.deltaTime * Vector3.forward);
+        // CONTROLE DE INPUTS DE VELOCIDADE DE MOVIMENTO
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            transform.Translate((velocidadeAtual * Time.deltaTime * Vector3.forward) * 1.5f);
+        }
+        else if (agachado)
+        {
+            transform.Translate((velocidadeAtual * Time.deltaTime * Vector3.forward) / 2);
+        }
+        else if (!agachado)
+        {
+            transform.Translate(velocidadeAtual * Time.deltaTime * Vector3.forward);
+        }
 
         float valorAnimacao = Mathf.Clamp(velocidadeAtual / velocidadeMaxima, 0f, 1f);
         an.SetFloat("Speed", valorAnimacao);
