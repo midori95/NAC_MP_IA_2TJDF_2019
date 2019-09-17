@@ -37,7 +37,15 @@ public class Waypoint : MonoBehaviour
 
         int id = -1;
 
-        id = int.Parse(nome);
+        try
+        {
+            id = int.Parse(nome) - 1;
+        }
+        catch (Exception)
+        {
+            Debug.LogError("Algum Erro ocorreu. Certifique-se de que o waypoint possui um nome padrão correto waypoint(numero)");
+        }
+
         return id;
     }
 
@@ -56,7 +64,7 @@ public class Waypoint : MonoBehaviour
         DefinirWaypoint(ref waypointPosterior, indexPosterior);
     }
 
-    private void DefinirWaypoint(ref Waypoint Waypoint, int index)
+    private void DefinirWaypoint(ref Waypoint waypoint, int index)
     {
         if (index < 0)
         {
@@ -66,6 +74,8 @@ public class Waypoint : MonoBehaviour
         {
             index = 0;
         }
+
+        waypoint = waypoints[index];
     }
 
     private void OnDrawGizmos()
