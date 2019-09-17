@@ -44,8 +44,7 @@ public class Waypoint : MonoBehaviour
     private void AtualizarWaypoints()
     {
         waypoints = FindObjectsOfType<Waypoint>();
-        //deu erro
-        //waypoints = waypoints.OrderBy(objeto => PegarIdWaypoint(objeto, name)).toArray();
+        waypoints = waypoints.OrderBy(objeto => PegarIdWaypoint(objeto.name)).ToArray();
     }
 
     private void LinkarWaypoints()
