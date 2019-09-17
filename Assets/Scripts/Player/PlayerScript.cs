@@ -99,4 +99,11 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerStay(Collider collider)
+    {
+        if (collider.tag == "Porco" && Input.GetKeyDown(KeyCode.Space))
+        {
+        }
+    }
 }
