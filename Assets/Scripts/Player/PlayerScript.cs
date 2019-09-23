@@ -11,6 +11,8 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody rb;
     public float forcaPulo = 500f;
     public static bool agachado;
+    public static int life;
+    public GameObject hitPorco;
 
     #region BLENDTREE
 
@@ -104,6 +106,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (collider.tag == "Porco" && Input.GetKeyDown(KeyCode.Space))
         {
+            Instantiate(hitPorco, collider.transform.position, transform.rotation);
         }
     }
 

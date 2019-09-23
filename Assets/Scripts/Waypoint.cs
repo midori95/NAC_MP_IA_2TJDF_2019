@@ -10,7 +10,7 @@ public class Waypoint : MonoBehaviour
     private Waypoint[] waypoints;
 
     private int indexAtual = -1;
-    private Waypoint waypointAnterior;
+    internal Waypoint waypointAnterior;
     internal Waypoint waypointPosterior;
 
     private void Start()

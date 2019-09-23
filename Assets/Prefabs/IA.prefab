@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 142416334049017069}
   - component: {fileID: 2712102505395022710}
   - component: {fileID: 8653263517874899380}
+  - component: {fileID: 5793010622668559349}
   m_Layer: 0
   m_Name: IA
   m_TagString: Porco
@@ -31,6 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3394429697177219824}
+  - {fileID: 3021752627244333232}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,6 +62,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d2146d1d39c624b8c41029fe46a674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  estadoAtual: 0
+  player: {fileID: 0}
+  arma: {fileID: 7293358362767805501}
+  anControl: {fileID: 4724676311159431050}
+  tempoEsperar: 2
+  waypint1: {fileID: 0}
+  waypint2: {fileID: 0}
+  distanciaMinimaWaypoint: 0.5
+  campoVisao: 20
+  tempoProcurar: 4
+  targets: []
 --- !u!195 &8653263517874899380
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -69,9 +82,9 @@ NavMeshAgent:
   m_GameObject: {fileID: 696362979640860586}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Radius: 0.75
+  m_Speed: 5
+  m_Acceleration: 60
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -79,9 +92,67 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &5793010622668559349
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696362979640860586}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 2.5, z: 0.1}
+  m_Center: {x: 0, y: 0.7574971, z: -0.6687682}
+--- !u!1 &7293358362767805501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3021752627244333232}
+  - component: {fileID: 8862956179655160064}
+  m_Layer: 0
+  m_Name: Arma
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3021752627244333232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293358362767805501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9191002091989340118}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8862956179655160064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7293358362767805501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8da399c2539f87d42ba66197f5fb5261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiro: {fileID: 4261935923707343785, guid: 841470b2786bab1468913866747d28e3, type: 3}
+  tempo: 2
 --- !u!1001 &7665648961496111594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122,7 +193,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: daba49fe36fda544fbc37cb57a7cffec,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: daba49fe36fda544fbc37cb57a7cffec,
         type: 3}
@@ -132,7 +203,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: daba49fe36fda544fbc37cb57a7cffec,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: daba49fe36fda544fbc37cb57a7cffec,
         type: 3}
@@ -147,7 +218,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: daba49fe36fda544fbc37cb57a7cffec,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: daba49fe36fda544fbc37cb57a7cffec,
         type: 3}
@@ -159,6 +230,12 @@ PrefabInstance:
 --- !u!4 &3394429697177219824 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: daba49fe36fda544fbc37cb57a7cffec,
+    type: 3}
+  m_PrefabInstance: {fileID: 7665648961496111594}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4724676311159431050 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: daba49fe36fda544fbc37cb57a7cffec,
     type: 3}
   m_PrefabInstance: {fileID: 7665648961496111594}
   m_PrefabAsset: {fileID: 0}

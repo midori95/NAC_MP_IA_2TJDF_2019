@@ -20,8 +20,14 @@ public class IAScript : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     //private AICharacterControl aiCharacterControl;
 
-    private Transform player;
+    public Transform player;
+    private RaycastHit hit;
     private int vidaPorco = 3;
+    private bool dis;
+    private bool ra;
+    public GameObject arma;
+
+    public Animator anControl;
 
     [Header("Esperar")]
     public float tempoEsperar = 2f;
@@ -39,12 +45,16 @@ public class IAScript : MonoBehaviour
     [Header("Perseguir")]
     public float campoVisao = 5f;
 
+    private float campoOriginal;
+
     private float distanciaJogador;
 
     [Header("Procurar")]
     public float tempoProcurar = 4f;
 
     private float tempoProcurando = 0f;
+
+    public GameObject[] targets;
 
     private void Awake()
     {
@@ -54,19 +64,30 @@ public class IAScript : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
         waypintAtual = waypint1;
 
         Esperar();
+
+        targets = GameObject.FindGameObjectsWithTag("Waypoint");
+        campoOriginal = campoVisao;
     }
 
     private void Update()
     {
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
         ChecarEstados();
         if (vidaPorco <= 0)
         {
             Destroy(gameObject);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            campoVisao = campoVisao / 1.5f;
+        }
+        else
+        {
+            campoVisao = campoOriginal;
         }
     }
 
@@ -85,6 +106,7 @@ public class IAScript : MonoBehaviour
                 if (EsperouTemposuficinete())
                 {
                     Patrulhar();
+                    anControl.SetBool("anda", true);
                 }
                 else
                 {
@@ -96,6 +118,7 @@ public class IAScript : MonoBehaviour
                 if (PertoWypointAtual())
                 {
                     Esperar();
+                    anControl.SetBool("anda", false);
                     AlternarWaypoint();
                 }
                 else
@@ -109,11 +132,17 @@ public class IAScript : MonoBehaviour
 
                 if (!PossuiVisaoJogador())
                 {
+                    arma.SetActive(false);
                     Procurar();
+                    anControl.SetBool("anda", true);
+                    navMeshAgent.stoppingDistance = 0.5f;
                 }
                 else
                 {
+                    arma.SetActive(true);
+                    transform.LookAt(player);
                     alvo = player;
+                    navMeshAgent.stoppingDistance = 15f;
                 }
                 break;
 
@@ -122,6 +151,7 @@ public class IAScript : MonoBehaviour
                 if (ProcurouTemposuficinete())
                 {
                     Esperar();
+                    anControl.SetBool("anda", false);
                 }
                 else
                 {
@@ -161,7 +191,7 @@ public class IAScript : MonoBehaviour
     private void Patrulhar()
     {
         estadoAtual = Estados.PATRULHAR;
-        navMeshAgent.speed = 0.5f;
+        //navMeshAgent.speed = 1f;
     }
 
     private bool PertoWypointAtual()
@@ -172,7 +202,29 @@ public class IAScript : MonoBehaviour
 
     private void AlternarWaypoint()
     {
-        waypintAtual = (waypintAtual == waypint1) ? waypint2 : waypint1;
+        Transform possivelTarget = null;
+        GameObject possivelGameO = null;
+
+        foreach (GameObject waypoint in targets)
+        {
+            float checarDistancia = Vector3.Distance(waypoint.transform.position, transform.position);
+
+            if (possivelTarget == null || checarDistancia < Vector3.Distance(possivelTarget.position, transform.position))
+            {
+                possivelTarget = waypoint.transform;
+                possivelGameO = waypoint;
+                waypint1 = possivelGameO.GetComponent<Waypoint>().waypointPosterior.transform;
+                waypint2 = possivelGameO.GetComponent<Waypoint>().waypointAnterior.transform;
+            }
+        }
+
+        /*if (possivelTarget != null)
+        {
+            waypintAtual = waypint1;
+        }*/
+
+        waypintAtual = waypint1;
+        //waypintAtual = (waypintAtual == waypint1) ? waypint2 : waypint1;
     }
 
     #endregion PATRULHAR
@@ -182,13 +234,43 @@ public class IAScript : MonoBehaviour
     private void Perseguir()
     {
         estadoAtual = Estados.PERSEGUIR;
-        navMeshAgent.speed = 1f;
+        // navMeshAgent.speed = 1f;
     }
 
     private bool PossuiVisaoJogador()
     {
+        if (Physics.Raycast(transform.position, player.transform.position, out hit))
+        {
+            Debug.DrawRay(transform.position, player.transform.position, Color.yellow);
+            //Debug.Log("Did Hit");
+            if (hit.collider.gameObject.name == "Player")
+            {
+                ra = true;
+            }
+            else
+            {
+                ra = false;
+            }
+        }
         distanciaJogador = Vector3.Distance(transform.position, player.position);
-        return distanciaJogador <= campoVisao;
+
+        if (distanciaJogador <= campoVisao)
+        {
+            dis = true;
+        }
+        else
+        {
+            dis = false;
+        }
+
+        if (dis && ra)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     #endregion PERSEGUIR
