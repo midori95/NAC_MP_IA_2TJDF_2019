@@ -329,12 +329,13 @@ public class IAScript : MonoBehaviour
 
     private void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == "Player" && Input.GetKeyDown(KeyCode.Space) || ardController.GetKeyDown(ArdKeyCode.BUTTON_X))
+        if (collider.tag == "Player" && Input.GetKeyDown(KeyCode.Space))
+        // || ardController.GetKeyDown(ArdKeyCode.BUTTON_X)
         {
             vidaPorco--;
         }
 
-        if (collider.tag == "Player" && PossuiVisaoJogador())
+        if (collider.tag == "Player" && PossuiVisaoJogador() && ia3)
         {
             Destroy(gameObject);
         }
