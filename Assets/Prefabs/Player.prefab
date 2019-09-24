@@ -137,7 +137,8 @@ MonoBehaviour:
   rb: {fileID: -1653615319748808593}
   forcaPulo: 500
   hitPorco: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
-  podePular: 0
+  ardController: {fileID: 2517564438861994645, guid: 350e4a60ef2032a42b23763ee799661b,
+    type: 3}
   an: {fileID: 6121304252658074255}
   velocidadeAtual: 0
   velocidadeRotacao: 130

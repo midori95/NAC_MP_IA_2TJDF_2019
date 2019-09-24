@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using ArdJoystick;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     private bool podePular;
     private GameObject[] porcos;
     private int numeroP;
+    public ArdController ardController;
 
     #region BLENDTREE
 
@@ -81,7 +83,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // CONTROLE DE INPUTS DE VELOCIDADE DE MOVIMENTO
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) || ardController.GetKeyDown(ArdKeyCode.BUTTON_A))
         {
             transform.Translate((velocidadeAtual * Time.deltaTime * Vector3.forward) * 1.5f);
         }

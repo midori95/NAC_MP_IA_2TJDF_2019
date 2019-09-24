@@ -58,7 +58,7 @@ public class IAScript : MonoBehaviour
 
     public bool ia1;
     public bool ia2;
-    public static bool ia3;
+    public bool ia3;
 
     private void Awake()
     {
@@ -329,6 +329,11 @@ public class IAScript : MonoBehaviour
         if (collider.tag == "Player" && Input.GetKeyDown(KeyCode.Space))
         {
             vidaPorco--;
+        }
+
+        if (collider.tag == "Player" && PossuiVisaoJogador())
+        {
+            Destroy(gameObject);
         }
     }
 }
