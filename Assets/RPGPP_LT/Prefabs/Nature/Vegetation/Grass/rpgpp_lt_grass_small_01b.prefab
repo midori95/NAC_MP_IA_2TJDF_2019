@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4931211907768612}
   - component: {fileID: 33549118652776542}
   - component: {fileID: 23528821276422034}
+  - component: {fileID: 6691279391604305186}
+  - component: {fileID: 6574088070593193409}
   m_Layer: 0
   m_Name: rpgpp_lt_grass_small_01b
   m_TagString: Untagged
@@ -77,3 +79,28 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6691279391604305186
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733909988577898}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: -0.03026411, y: 0.58775294, z: 0.07367429}
+--- !u!114 &6574088070593193409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733909988577898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e510fab732a8d5c48ac492a9c23607d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

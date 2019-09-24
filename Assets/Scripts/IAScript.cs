@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using ArdJoystick;
 
 public class IAScript : MonoBehaviour
 {
@@ -59,6 +60,8 @@ public class IAScript : MonoBehaviour
     public bool ia1;
     public bool ia2;
     public bool ia3;
+
+    public ArdController ardController;
 
     private void Awake()
     {
@@ -326,7 +329,7 @@ public class IAScript : MonoBehaviour
 
     private void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == "Player" && Input.GetKeyDown(KeyCode.Space))
+        if (collider.tag == "Player" && Input.GetKeyDown(KeyCode.Space) || ardController.GetKeyDown(ArdKeyCode.BUTTON_X))
         {
             vidaPorco--;
         }
