@@ -74,21 +74,6 @@ public class IAScript : MonoBehaviour
 
     private void Update()
     {
-        // REMOVER
-
-        var direction = player.transform.position - transform.position;
-
-        RaycastHit hit;
-        Physics.Raycast(transform.position, direction, out hit);
-
-        var canSeePlayer = hit.transform && hit.transform.CompareTag("Player");
-
-        Debug.Log(hit.transform);
-
-        Debug.DrawRay(transform.position, direction, canSeePlayer ? Color.green : Color.red);
-
-        // REMOVER
-
         //player = GameObject.FindGameObjectWithTag("Player").transform;
         ChecarEstados();
         if (vidaPorco <= 0)
@@ -254,9 +239,13 @@ public class IAScript : MonoBehaviour
 
     private bool PossuiVisaoJogador()
     {
-        if (Physics.Raycast(transform.position, player.transform.position, out hit))
+        var direction = player.transform.position - transform.position;
+
+        if (Physics.Raycast(transform.position, direction, out hit))
         {
-            Debug.DrawRay(transform.position, player.transform.position, Color.yellow);
+            var canSeePlayer = hit.transform && hit.transform.CompareTag("Player") && dis && ra;
+
+            Debug.DrawRay(transform.position, direction, canSeePlayer ? Color.green : Color.red);
             //Debug.Log("Did Hit");
             if (hit.collider.gameObject.name == "Player")
             {
@@ -304,6 +293,8 @@ public class IAScript : MonoBehaviour
         return tempoProcurando + tempoProcurar <= Time.time;
     }
 
+    #endregion PROCURAR
+
     private void OnTriggerStay(Collider collider)
     {
         if (collider.tag == "Player" && Input.GetKeyDown(KeyCode.Space))
@@ -311,6 +302,4 @@ public class IAScript : MonoBehaviour
             vidaPorco--;
         }
     }
-
-    #endregion PROCURAR
 }

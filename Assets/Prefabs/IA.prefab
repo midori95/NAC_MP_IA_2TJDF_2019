@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2712102505395022710}
   - component: {fileID: 8653263517874899380}
   - component: {fileID: 5793010622668559349}
+  - component: {fileID: 112460938835981988}
+  - component: {fileID: 6491988902901568117}
   m_Layer: 0
   m_Name: IA
   m_TagString: Porco
@@ -103,11 +105,37 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 696362979640860586}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 2.5, z: 0.1}
-  m_Center: {x: 0, y: 0.7574971, z: -0.6687682}
+  m_Size: {x: 1.8105128, y: 2.5, z: 0.100000024}
+  m_Center: {x: -0.0026062727, y: 0.7574971, z: -0.6687682}
+--- !u!65 &112460938835981988
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696362979640860586}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.26104712, y: 2.481761, z: 1.0187082}
+  m_Center: {x: 0.71, y: 0.7654059, z: -0.2536331}
+--- !u!65 &6491988902901568117
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696362979640860586}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.26104712, y: 2.481761, z: 1.0510356}
+  m_Center: {x: -0.83250535, y: 0.7654059, z: -0.23746943}
 --- !u!1 &7293358362767805501
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3021752627244333232
 Transform:
   m_ObjectHideFlags: 0

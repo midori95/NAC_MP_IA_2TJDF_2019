@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody rb;
     public float forcaPulo = 500f;
     public static bool agachado;
-    public static int life;
+    public static int life = 10;
     public GameObject hitPorco;
 
     #region BLENDTREE
