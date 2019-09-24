@@ -58,7 +58,7 @@ public class IAScript : MonoBehaviour
 
     public bool ia1;
     public bool ia2;
-    public bool ia3;
+    public static bool ia3;
 
     private void Awake()
     {

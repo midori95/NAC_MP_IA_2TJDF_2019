@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class PlayerScript : MonoBehaviour
     public static bool agachado;
     public static int life = 10;
     public GameObject hitPorco;
-    public bool podePular;
+    private bool podePular;
+    private GameObject[] porcos;
+    private int numeroP;
 
     #region BLENDTREE
 
@@ -44,6 +47,13 @@ public class PlayerScript : MonoBehaviour
         else
         {
             Move();
+        }
+
+        porcos = GameObject.FindGameObjectsWithTag("Porco");
+        numeroP = porcos.Length;
+        if (numeroP <= 0)
+        {
+            SceneManager.LoadScene("");
         }
     }
 
