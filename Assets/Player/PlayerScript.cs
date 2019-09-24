@@ -60,14 +60,13 @@ public class PlayerScript : MonoBehaviour
 
         if (ardController.GetKeyDown(ArdKeyCode.BUTTON_START) || Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("Pausar");
             Time.timeScale = Time.timeScale != 0 ? 0 : 1;
         }
     }
 
     private void Move()
     {
-        float h = Input.GetAxisRaw("Horizontal");
+        float h;
 
         if (ardController.GetKey(ArdKeyCode.BUTTON_LEFT))
         {
@@ -79,9 +78,8 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            h = 0;
+            h = Input.GetAxisRaw("Horizontal");
         }
-
         Vector3 rotacao = Vector3.up * velocidadeRotacao * Time.deltaTime * h;
 
         float v = Input.GetAxisRaw("Vertical");
