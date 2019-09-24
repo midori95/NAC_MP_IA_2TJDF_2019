@@ -62,6 +62,20 @@ public class PlayerScript : MonoBehaviour
     private void Move()
     {
         float h = Input.GetAxisRaw("Horizontal");
+
+        if (ardController.GetKeyDown(ArdKeyCode.BUTTON_LEFT))
+        {
+            h = -1;
+        }
+        else if (ardController.GetKeyDown(ArdKeyCode.BUTTON_RIGHT))
+        {
+            h = 1;
+        }
+        else
+        {
+            h = 0;
+        }
+
         Vector3 rotacao = Vector3.up * velocidadeRotacao * Time.deltaTime * h;
 
         float v = Input.GetAxisRaw("Vertical");
@@ -73,7 +87,7 @@ public class PlayerScript : MonoBehaviour
 
         velocidadeAtual = Mathf.Clamp(velocidadeAtual, 0, velocidadeMaxima);
 
-        if (v > 0 && velocidadeAtual < velocidadeMaxima)
+        if (ardController.GetKeyDown(ArdKeyCode.BUTTON_UP) || v > 0 && velocidadeAtual < velocidadeMaxima)
         {
             velocidadeAtual += velocidadeAtual == 0f ? aceleracaoInicial : aceleracao;
         }

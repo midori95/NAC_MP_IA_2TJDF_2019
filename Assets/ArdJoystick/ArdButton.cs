@@ -1,49 +1,57 @@
 ﻿namespace ArdJoystick
 {
-	public enum ArdKeyCode
-	{
-		BUTTON_A,
-		BUTTON_B,
-		BUTTON_X,
-		BUTTON_Y
-	}
+    public enum ArdKeyCode
+    {
+        BUTTON_LEFT,
+        BUTTON_DOWN,
+        BUTTON_UP,
+        BUTTON_RIGHT,
 
-	public class ArdButton
-	{
-		private ArdKeyCode keyCode;
+        BUTTON_START,
+        BUTTON_SELECT,
 
-		public bool keyDown = false;
-		public bool keyPress = false;
-		public bool keyUp = false;
+        BUTTON_Y, //A
+        BUTTON_B, //B
+        BUTTON_X, //X
+        BUTTON_A //Y
+    }
 
-		private int oldData = 0;
+    public class ArdButton
+    {
+        private ArdKeyCode keyCode;
 
-		public ArdButton(ArdKeyCode keyCode)
-		{
-			this.keyCode = keyCode;
-		}
+        public bool keyDown = false;
+        public bool keyPress = false;
+        public bool keyUp = false;
 
-		public void ProcessData(int data)
-		{
-			if (data == 1 && oldData == 0)
-			{
-				keyDown = true;
-			}
-			else if (data == 0 && oldData == 1)
-			{
-				keyUp = true;
-			}
+        private int oldData = 0;
 
-			if (data == 1)
-			{
-				keyPress = true;
-			}
-			else
-			{
-				keyPress = false;
-			}
+        public ArdButton(ArdKeyCode keyCode)
+        {
+            this.keyCode = keyCode;
+        }
 
-			oldData = data;
-		}
-	}
+        public void ProcessData(int data)
+        {
+            if (data == 1 && oldData == 0)
+            {
+                keyDown = true;
+            }
+            else if (data == 0 && oldData == 1)
+            {
+                keyUp = true;
+            }
+
+            if (data == 1)
+            {
+                keyPress = true;
+            }
+            else
+            {
+                keyPress = false;
+            }
+
+            oldData = data;
+        }
+    }
 }
