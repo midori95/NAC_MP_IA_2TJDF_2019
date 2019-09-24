@@ -34,8 +34,8 @@ public class SpawnPorco : MonoBehaviour
                 tempo -= Time.deltaTime;
                 if (tempo <= 0)
                 {
-                    Instantiate(porco, new Vector3(Random.Range(-minX, maxX),
-                        porco.transform.position.y, Random.Range(-minZ, maxZ)),
+                    Instantiate(porco, new Vector3(Random.Range(-minX + transform.position.x, maxX + transform.position.x),
+                        porco.transform.position.y, Random.Range(-minZ + transform.position.z, maxZ + +transform.position.z)),
                         transform.rotation);
 
                     tempo = 8f;
