@@ -54,7 +54,11 @@ public class IAScript : MonoBehaviour
 
     private float tempoProcurando = 0f;
 
-    public GameObject[] targets;
+    private GameObject[] targets;
+
+    public bool ia1;
+    public bool ia2;
+    public bool ia3;
 
     private void Awake()
     {
@@ -81,9 +85,9 @@ public class IAScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && !PossuiVisaoJogador())
         {
-            campoVisao = campoVisao / 1.5f;
+            campoVisao = campoVisao * 0.8f;
         }
         else
         {
@@ -110,7 +114,14 @@ public class IAScript : MonoBehaviour
                 }
                 else
                 {
-                    alvo = transform;
+                    if (ia3)
+                    {
+                        alvo = player;
+                    }
+                    else
+                    {
+                        alvo = transform;
+                    }
                 }
                 break;
 
@@ -123,7 +134,14 @@ public class IAScript : MonoBehaviour
                 }
                 else
                 {
-                    alvo = waypintAtual;
+                    if (ia3)
+                    {
+                        alvo = player;
+                    }
+                    else
+                    {
+                        alvo = waypintAtual;
+                    }
                 }
 
                 break;
@@ -139,10 +157,21 @@ public class IAScript : MonoBehaviour
                 }
                 else
                 {
-                    arma.SetActive(true);
-                    transform.LookAt(player);
-                    alvo = player;
-                    navMeshAgent.stoppingDistance = 15f;
+                    if (ia1)
+                    {
+                        //ia que atira parada
+                        arma.SetActive(true);
+                        transform.LookAt(player);
+                        navMeshAgent.stoppingDistance = 15f;
+                    }
+                    else if (ia2)
+                    {
+                        //ia que persegue
+                        transform.LookAt(player);
+                        alvo = player;
+                        navMeshAgent.stoppingDistance = 0f;
+                    }
+                    //navMeshAgent.stoppingDistance = 15f;
                 }
                 break;
 

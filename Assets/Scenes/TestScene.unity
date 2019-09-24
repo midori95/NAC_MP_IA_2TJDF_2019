@@ -591,7 +591,7 @@ GameObject:
   - component: {fileID: 1246402589}
   m_Layer: 0
   m_Name: Chao
-  m_TagString: Untagged
+  m_TagString: Chao
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -1779,10 +1779,15 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8951921426083677815, guid: 7d01f8237fda8a24eb9ad47b263db6ea,
+    - target: {fileID: 6163342129815052429, guid: 7d01f8237fda8a24eb9ad47b263db6ea,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: m_Radius
+      value: 1.5849981
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163342129815052429, guid: 7d01f8237fda8a24eb9ad47b263db6ea,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.9382696
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d01f8237fda8a24eb9ad47b263db6ea, type: 3}

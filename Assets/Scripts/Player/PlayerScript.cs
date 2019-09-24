@@ -9,10 +9,11 @@ public class PlayerScript : MonoBehaviour
     public bool moveClick;
     public NavMeshAgent playerNavMesh;
     public Rigidbody rb;
-    public float forcaPulo = 500f;
+    public float forcaPulo = 250f;
     public static bool agachado;
     public static int life = 10;
     public GameObject hitPorco;
+    public bool podePular;
 
     #region BLENDTREE
 
@@ -85,6 +86,11 @@ public class PlayerScript : MonoBehaviour
 
         float valorAnimacao = Mathf.Clamp(velocidadeAtual / velocidadeMaxima, 0f, 1f);
         an.SetFloat("Speed", valorAnimacao);
+
+        if (Input.GetKeyDown(KeyCode.J) && podePular)
+        {
+            rb.AddForce(Vector3.up * forcaPulo);
+        }
     }
 
     private void SetDestination()
@@ -107,6 +113,21 @@ public class PlayerScript : MonoBehaviour
         if (collider.tag == "Porco" && Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(hitPorco, collider.transform.position, transform.rotation);
+        }
+
+        if (collider.tag == "Chao")
+        {
+            podePular = true;
+        }
+
+        print(collider.tag);
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.tag == "Chao")
+        {
+            podePular = false;
         }
     }
 

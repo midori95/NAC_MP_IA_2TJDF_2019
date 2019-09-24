@@ -75,6 +75,9 @@ MonoBehaviour:
   campoVisao: 20
   tempoProcurar: 4
   targets: []
+  ia1: 1
+  ia2: 0
+  ia3: 0
 --- !u!195 &8653263517874899380
 NavMeshAgent:
   m_ObjectHideFlags: 0

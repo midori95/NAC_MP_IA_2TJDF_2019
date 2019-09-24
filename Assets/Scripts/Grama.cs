@@ -31,7 +31,5 @@ public class Grama : MonoBehaviour
         {
             gameObject.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 1);
         }
-
-        print(collider.tag);
     }
 }
