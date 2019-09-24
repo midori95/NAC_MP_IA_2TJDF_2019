@@ -74,6 +74,21 @@ public class IAScript : MonoBehaviour
 
     private void Update()
     {
+        // REMOVER
+
+        var direction = player.transform.position - transform.position;
+
+        RaycastHit hit;
+        Physics.Raycast(transform.position, direction, out hit);
+
+        var canSeePlayer = hit.transform && hit.transform.CompareTag("Player");
+
+        Debug.Log(hit.transform);
+
+        Debug.DrawRay(transform.position, direction, canSeePlayer ? Color.green : Color.red);
+
+        // REMOVER
+
         //player = GameObject.FindGameObjectWithTag("Player").transform;
         ChecarEstados();
         if (vidaPorco <= 0)
