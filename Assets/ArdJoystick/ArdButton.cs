@@ -13,7 +13,9 @@
         BUTTON_Y, //A
         BUTTON_B, //B
         BUTTON_X, //X
-        BUTTON_A //Y
+        BUTTON_A, //Y
+
+        SENSORLUZ
     }
 
     public class ArdButton

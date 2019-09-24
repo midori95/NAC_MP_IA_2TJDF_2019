@@ -6,129 +6,131 @@ using UnityEngine;
 
 namespace ArdJoystick
 {
-	public class ArdController : MonoBehaviour
-	{
-		public Dictionary<ArdKeyCode, ArdButton> buttons = new Dictionary<ArdKeyCode, ArdButton>();
+    public class ArdController : MonoBehaviour
+    {
+        public Dictionary<ArdKeyCode, ArdButton> buttons = new Dictionary<ArdKeyCode, ArdButton>();
 
-		[Header("Arduino")]
-		public string port = "COM4";
-		public int baudRate = 9600;
-		private SerialPort serialPort;
+        [Header("Arduino")]
+        public string port = "COM4";
 
-		private void Awake()
-		{
-			try
-			{
-				serialPort = new SerialPort(port, baudRate)
-				{
-					ReadTimeout = 10
-				};
-				serialPort.Open();
-			}
-			catch (Exception e)
-			{
-				Debug.LogError(e);
-			}
+        public int baudRate = 9600;
+        private SerialPort serialPort;
 
-			foreach (ArdKeyCode keyCode in Enum.GetValues(typeof(ArdKeyCode)))
-			{
-				ArdButton button = new ArdButton(keyCode);
+        private void Awake()
+        {
+            try
+            {
+                serialPort = new SerialPort(port, baudRate)
+                {
+                    ReadTimeout = 10
+                };
+                serialPort.Open();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
 
-				buttons.Add(keyCode, button);
-			}
+            foreach (ArdKeyCode keyCode in Enum.GetValues(typeof(ArdKeyCode)))
+            {
+                ArdButton button = new ArdButton(keyCode);
 
-			StartCoroutine(ProcessData());
-		}
+                buttons.Add(keyCode, button);
+            }
 
-		private void LateUpdate()
-		{
-			// Keys Process
-			foreach (KeyValuePair<ArdKeyCode, ArdButton> button in buttons)
-			{
-				button.Value.keyDown = false;
-				button.Value.keyUp = false;
-			}
-		}
+            StartCoroutine(ProcessData());
+        }
 
-		public bool GetKeyDown(ArdKeyCode keyCode)
-		{
-			return buttons[keyCode].keyDown;
-		}
+        private void LateUpdate()
+        {
+            // Keys Process
+            foreach (KeyValuePair<ArdKeyCode, ArdButton> button in buttons)
+            {
+                button.Value.keyDown = false;
+                button.Value.keyUp = false;
+            }
+        }
 
-		public bool GetKey(ArdKeyCode keyCode)
-		{
-			return buttons[keyCode].keyPress;
-		}
+        public bool GetKeyDown(ArdKeyCode keyCode)
+        {
+            return buttons[keyCode].keyDown;
+        }
 
-		public bool GetKeyUp(ArdKeyCode keyCode)
-		{
-			return buttons[keyCode].keyUp;
-		}
+        public bool GetKey(ArdKeyCode keyCode)
+        {
+            return buttons[keyCode].keyPress;
+        }
 
-		private IEnumerator ProcessData()
-		{
-			while (true)
-			{
-				yield return new WaitForEndOfFrame();
+        public bool GetKeyUp(ArdKeyCode keyCode)
+        {
+            return buttons[keyCode].keyUp;
+        }
 
-				try
-				{
-					//string result = serialPort.ReadLine();
+        private IEnumerator ProcessData()
+        {
+            while (true)
+            {
+                yield return new WaitForEndOfFrame();
 
-					// Tests
-					string result = SimulateReadLine();
+                try
+                {
+                    string result = serialPort.ReadLine();
 
-					string[] resultData = result.Split(';');
+                    // Tests
+                    //string result = SimulateReadLine();
 
-					ArdKeyCode[] keyCodes = (ArdKeyCode[])Enum.GetValues(typeof(ArdKeyCode));
-					for (int i = 0; i < keyCodes.Length; i++)
-					{
-						ArdKeyCode keyCode = keyCodes[i];
-						ArdButton button = buttons[keyCode];
-						int data = int.Parse(resultData[i]);
+                    string[] resultData = result.Split(';');
 
-						button.ProcessData(data);
-					}
-				}
-				catch (Exception e)
-				{
-					Debug.LogError(e);
-				}
-			}
-		}
+                    ArdKeyCode[] keyCodes = (ArdKeyCode[])Enum.GetValues(typeof(ArdKeyCode));
+                    for (int i = 0; i < keyCodes.Length; i++)
+                    {
+                        ArdKeyCode keyCode = keyCodes[i];
+                        ArdButton button = buttons[keyCode];
+                        int data = int.Parse(resultData[i]);
 
-		private void OnApplicationQuit()
-		{
-			try
-			{
-				serialPort.Close();
-			}
-			catch (Exception e)
-			{
-				Debug.LogError(e);
-			}
-		}
+                        button.ProcessData(data);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
+            }
+        }
 
-		#region TESTS
+        private void OnApplicationQuit()
+        {
+            try
+            {
+                serialPort.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
 
-		[Header("Tests")]
-		public float forca = 350f;
+        #region TESTS
 
-		public GameObject[] buttonsRbs;
+        [Header("Tests")]
+        public float forca = 350f;
 
-		private string SimulateReadLine()
-		{
-			string result = "";
-			result += (Input.GetKey(KeyCode.Z) ? "1" : "0") + ";";
-			result += (Input.GetKey(KeyCode.X) ? "1" : "0") + ";";
-			result += (Input.GetKey(KeyCode.C) ? "1" : "0") + ";";
-			result += (Input.GetKey(KeyCode.V) ? "1" : "0");
-			return result;
-		}
+        public GameObject[] buttonsRbs;
 
-		private void Update()
-		{
-			// Test for pausing the game
+        private string SimulateReadLine()
+        {
+            string result = "";
+            result += (Input.GetKey(KeyCode.Z) ? "1" : "0") + ";";
+            result += (Input.GetKey(KeyCode.X) ? "1" : "0") + ";";
+            result += (Input.GetKey(KeyCode.C) ? "1" : "0") + ";";
+            result += (Input.GetKey(KeyCode.V) ? "1" : "0");
+            return result;
+        }
+
+        private void Update()
+        {
+            // Test for pausing the game
+            /*
 			if (GetKeyDown(ArdKeyCode.BUTTON_Y))
 			{
 				Debug.Log("Pausar");
@@ -163,8 +165,9 @@ namespace ArdJoystick
 					rbPress.AddForce(forca * Vector3.up);
 				}
 			}
-		}
+            */
+        }
 
-		#endregion TESTS
-	}
+        #endregion TESTS
+    }
 }

@@ -41,7 +41,7 @@ public class PlayerScript : MonoBehaviour
 
     private void Update()
     {
-        agachado = Input.GetKey(KeyCode.LeftShift);
+        agachado = Input.GetKey(KeyCode.LeftShift) || ardController.GetKey(ArdKeyCode.BUTTON_A);
         if (moveClick)
         {
             SetDestination();
@@ -57,17 +57,23 @@ public class PlayerScript : MonoBehaviour
         {
             SceneManager.LoadScene("");
         }
+
+        if (ardController.GetKeyDown(ArdKeyCode.BUTTON_START) || Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("Pausar");
+            Time.timeScale = Time.timeScale != 0 ? 0 : 1;
+        }
     }
 
     private void Move()
     {
         float h = Input.GetAxisRaw("Horizontal");
 
-        if (ardController.GetKeyDown(ArdKeyCode.BUTTON_LEFT))
+        if (ardController.GetKey(ArdKeyCode.BUTTON_LEFT))
         {
             h = -1;
         }
-        else if (ardController.GetKeyDown(ArdKeyCode.BUTTON_RIGHT))
+        else if (ardController.GetKey(ArdKeyCode.BUTTON_RIGHT))
         {
             h = 1;
         }
@@ -87,7 +93,7 @@ public class PlayerScript : MonoBehaviour
 
         velocidadeAtual = Mathf.Clamp(velocidadeAtual, 0, velocidadeMaxima);
 
-        if (ardController.GetKeyDown(ArdKeyCode.BUTTON_UP) || v > 0 && velocidadeAtual < velocidadeMaxima)
+        if (ardController.GetKey(ArdKeyCode.BUTTON_UP) || v > 0 && velocidadeAtual < velocidadeMaxima)
         {
             velocidadeAtual += velocidadeAtual == 0f ? aceleracaoInicial : aceleracao;
         }
@@ -97,7 +103,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // CONTROLE DE INPUTS DE VELOCIDADE DE MOVIMENTO
-        if (Input.GetKey(KeyCode.LeftControl) || ardController.GetKeyDown(ArdKeyCode.BUTTON_A))
+        if (Input.GetKey(KeyCode.LeftControl) || ardController.GetKeyDown(ArdKeyCode.BUTTON_Y))
         {
             transform.Translate((velocidadeAtual * Time.deltaTime * Vector3.forward) * 1.5f);
         }
@@ -113,7 +119,7 @@ public class PlayerScript : MonoBehaviour
         float valorAnimacao = Mathf.Clamp(velocidadeAtual / velocidadeMaxima, 0f, 1f);
         an.SetFloat("Speed", valorAnimacao);
 
-        if (Input.GetKeyDown(KeyCode.J) && podePular)
+        if (Input.GetKeyDown(KeyCode.J) || ardController.GetKeyDown(ArdKeyCode.BUTTON_B) && podePular)
         {
             rb.AddForce(Vector3.up * forcaPulo);
         }
@@ -146,7 +152,7 @@ public class PlayerScript : MonoBehaviour
             podePular = true;
         }
 
-        print(collider.tag);
+        //print(collider.tag);
     }
 
     private void OnTriggerExit(Collider collider)
